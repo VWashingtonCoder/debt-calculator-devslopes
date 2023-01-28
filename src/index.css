@@ -1,10 +1,16 @@
+:root {
+  --white-text: #fbfafa;
+  --black-text: #050a30;
+  --bg-light: #d9c6ff;
+  --bg-dark: #1c191a;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #03989e;
 }
 
 code {
