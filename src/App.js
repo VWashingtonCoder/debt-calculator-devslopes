@@ -3,15 +3,29 @@ import "./App.css";
 import Form from "./components/Form.jsx";
 import Display from "./components/Display";
 
-const infoFormData = {
-  totalDebt: "",
-  interestRate: "",
-  years: "",
-  months: "",
-};
+const defaultData = {
+  infoForm: {
+    totalDebt: "",
+    interestRate: "",
+    years: "",
+    months: ""
+  },
+  display: {
+    originalDebt: "",
+    monthlyPayment: "",
+    numOfPayments: "",
+    totalInterest: "",
+    totalPrincipal: "",
+    monthlyPrincipal: "",
+    monthlyInterest: "",
+    totalPayment: ""
+  }
+}
+
 
 function App() {
-  const [infoFormValues, setInfoFormValues] = useState(infoFormData);
+  const [infoFormValues, setInfoFormValues] = useState(defaultData.infoForm);
+  const [display, setDisplay] = useState(defaultData.display);
 
   function updateTotalDebt(evt) {
     const inputVal = evt.target.value;
@@ -73,7 +87,7 @@ function App() {
         updateMonths={updateTermMonths}
         infoSubmit={handleInfoSubmit}
       />
-      <Display />
+      <Display displayVals={display} />
     </div>
   );
 }
