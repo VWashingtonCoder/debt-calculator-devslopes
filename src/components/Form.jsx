@@ -1,8 +1,20 @@
 import Display from "./Display";
 import Table from "./Table";
 import "../styles/FormStyles.css";
+import { useState } from "react";
+
+const infoFormValues = {
+    totalDebt: 0,
+    interestRate: 0,
+    years: 0,
+    months: 0
+}
 
 function Form() {
+    const [infoFormVals, setInfoFormVals] = useState(infoFormValues);
+
+    // function updateFormValues 
+
   return (
     <div className="Form-container">
       <form className="Info-form">
@@ -19,12 +31,12 @@ function Form() {
         <div className="Form-input-container">
           <p>Total Debt Amount</p>
           <label htmlFor="total-debt" id="totalDebtLabel">$</label>
-          <input type="text" id="totalDebt" name="total-debt" required />
+          <input type="number" id="totalDebt" name="total-debt" required />
         </div>
 
         <div className="Form-input-container">
           <p>Estimated Interest Rate</p>
-          <input type="text" id="interestRate" name="interest-rate" required />
+          <input type="number" id="interestRate" name="interest-rate" required />
           <label htmlFor="interest-rate" id="interestRateLabel">
             %
           </label>

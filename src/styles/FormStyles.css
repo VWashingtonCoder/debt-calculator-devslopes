@@ -21,7 +21,8 @@
 }
 .Form-input-container input {
     padding: 3px;
-    width: 60vw;
+    padding-left: 17px;
+    width: 35vw;
     border-radius: 5px;
     border: 1.75px solid var(--black-text);
 }
@@ -30,24 +31,22 @@
 }
 .Form-input-container #totalDebtLabel {
     left: 2.4rem;
-    top: 17.85rem;
-}
-#interestRateLabel, 
-#termYearsLabel,
-#termMonthsLabel {
-    right: 6rem;
+    top: 17.825rem;
 }
 .Form-input-container #interestRateLabel {
     top: 21.75rem;
+    left: 9rem;
 }
 .Form-input-container #termYearsLabel {
-    top: 25.75rem;
+    top: 25.7rem;
+    left: 7.3rem;
 }
 .Form-input-container #termMonthsLabel {
     top: 29.25rem;
+    left: 6.3rem;
 }
 .Form-input-container #termComparison {
     font-weight: 700;
     margin-top: 0.4rem;
-    margin-left: 5rem;
+    margin-left: 3.5rem;
 }
