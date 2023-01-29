@@ -1,0 +1,53 @@
+.Info-form {
+    background-color: var(--bg-light);
+    color: var(--black-text);
+    max-width: 80vw;
+    margin: auto;
+    text-align: left;
+    padding: 1rem;
+    border-radius: 7px;
+    border: 1px solid var(--black-text);
+}
+.Form-header {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--black-text);
+}
+.Form-input-container {
+     margin-bottom: 0.75rem;
+}
+.Form-input-container p {
+    margin-bottom: 0.4rem;
+}
+.Form-input-container input {
+    padding: 3px;
+    width: 60vw;
+    border-radius: 5px;
+    border: 1.75px solid var(--black-text);
+}
+.Form-input-container label {
+    position: absolute;
+}
+.Form-input-container #totalDebtLabel {
+    left: 2.4rem;
+    top: 17.85rem;
+}
+#interestRateLabel, 
+#termYearsLabel,
+#termMonthsLabel {
+    right: 6rem;
+}
+.Form-input-container #interestRateLabel {
+    top: 21.75rem;
+}
+.Form-input-container #termYearsLabel {
+    top: 25.75rem;
+}
+.Form-input-container #termMonthsLabel {
+    top: 29.25rem;
+}
+.Form-input-container #termComparison {
+    font-weight: 700;
+    margin-top: 0.4rem;
+    margin-left: 5rem;
+}
