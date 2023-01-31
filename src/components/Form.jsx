@@ -1,7 +1,6 @@
 import "../styles/FormStyles.css";
 
 function Form(props) {
-  console.log(props);
   const { updateTotal, updateRate, updateYears, updateMonths, infoSubmit } =
     props;
   const { totalDebt, interestRate, years, months } = props.infoValues;

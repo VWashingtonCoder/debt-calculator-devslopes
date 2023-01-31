@@ -1,3 +1,5 @@
+import "../styles/DisplayStyle.css";
+
 function Display(props) {
   const {
     originalDebt,
@@ -13,7 +15,8 @@ function Display(props) {
   return (
     <div className="Display-container">
       <h2>Display View</h2>
-      <div className="main-display">
+
+      <div className="main-display ">
         <div className="text-container">
           <p className="display-title">Est. Monthly Payment</p>
           <p className="display-num">
@@ -36,7 +39,8 @@ function Display(props) {
         </div>
         <button>See Amortization Schedule</button>
       </div>
-      <div className="hidden-display">
+      
+      <div className="hidden-display disabled">
         <div className="text-container">
           <p className="display-title">Monthly Principal Payment</p>
           <p className="display-num">
@@ -50,7 +54,7 @@ function Display(props) {
           </p>
         </div>
         <div className="text-container">
-          <p className="display-title">Total Payment (Principal + Interest)</p>
+          <p className="display-title">Total Payment<br />(Principal + Interest)</p>
           <p className="display-num">
             {!totalPayment ? "0" : totalPayment}
           </p>
@@ -61,6 +65,7 @@ function Display(props) {
             {!originalDebt ? "0" : originalDebt}
           </p>
         </div>
+        <button>See Main Schedule</button>
       </div>
     </div>
   );

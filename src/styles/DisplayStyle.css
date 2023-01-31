@@ -1,0 +1,19 @@
+.Display-container {
+    background-color: var(--bg-dark);
+    width: 90vw;
+    margin: 10px auto;
+    padding: 3px 0 20px;
+    border-radius: 5px;
+    border: 2px solid var(--white-text);
+}
+.text-container {
+    margin: auto;
+    margin-bottom: 1rem;
+    max-width: 90%;
+}
+.display-title {
+    margin-bottom: 0.6rem;
+}
+.display-num {
+    font-size: 22px;
+}

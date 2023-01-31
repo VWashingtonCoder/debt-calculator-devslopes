@@ -36,3 +36,7 @@ p {
   font-size: 18px;
   border-radius: 8px;
 }
+
+.disabled {
+  display: none;
+}
