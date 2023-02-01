@@ -1,77 +1,35 @@
 import { useState } from "react";
 import "./App.css";
 import Form from "./components/Form.jsx";
-import Display from "./components/Display";
-
-const defaultData = {
-  infoForm: {
-    totalDebt: "",
-    interestRate: "",
-    years: "",
-    months: ""
-  },
-  display: {
-    originalDebt: "",
-    monthlyPayment: "",
-    numOfPayments: "",
-    totalInterest: "",
-    totalPrincipal: "",
-    monthlyPrincipal: "",
-    monthlyInterest: "",
-    totalPayment: ""
-  }
-}
-
 
 function App() {
-  const [infoFormValues, setInfoFormValues] = useState(defaultData.infoForm);
-  const [display, setDisplay] = useState(defaultData.display);
+  const [display, setDisplay] = useState({
+    monthlyPayment: 0,
+    paymentsLeft: 0,
+    totalInterest: 0,
+    totalPrincipal: 0,
+    monthlyPrincipal: 0,
+    monthlyInterest: 0,
+    totalPayment: 0,
+    originalDebt: 0,
+  })
+  const {
+    monthlyPayment,
+    paymentsLeft,
+    totalInterest,
+    totalPrincipal,
+    monthlyPrincipal, 
+    monthlyInterest, 
+    totalPayment, 
+    originalDebt 
+  } = display;
+  /* Handlers */
+  function updateDisplay(data){
+    const { totalDebt, interestRate, years, months } = data;
+    
+    console.log(totalDebt);
 
-  function updateTotalDebt(evt) {
-    const inputVal = evt.target.value;
-    setInfoFormValues({ ...infoFormValues, totalDebt: inputVal });
-  }
-
-  function updateInterestRate(evt) {
-    const inputVal = evt.target.value;
-    setInfoFormValues({ ...infoFormValues, interestRate: inputVal });
-  }
-
-  function updateTermYears(evt) {
-    const inputVal = evt.target.value;
-    setInfoFormValues({ ...infoFormValues, years: inputVal });
-  }
-
-  function updateTermMonths(evt) {
-    const inputVal = evt.target.value;
-    console.log(inputVal);
-    setInfoFormValues({ ...infoFormValues, months: inputVal });
-  }
-
-  function validateForm() {
-    const { totalDebt, interestRate, years, months } = infoFormValues;
-    let valid = true;
-
-    if (!totalDebt) {
-      alert("You are missing the total debt");
-      valid = false;
-    } else if (!interestRate) {
-      alert("You are missing the interest rate");
-      valid = false;
-    } else if (!years && !months) {
-      alert("Pick a term length");
-      valid = false;
-    }
-
-    return valid;
-  }
-
-  function handleInfoSubmit(evt) {
-    evt.preventDefault();
-    const valid = validateForm();
-    if (valid) {
-      console.log("success!");
-    }
+    setDisplay({...display, originalDebt: totalDebt})
   }
 
   return (
@@ -79,15 +37,52 @@ function App() {
       <header className="App-header">
         <h1>Debt Payoff Calculator</h1>
       </header>
-      <Form 
-        infoValues={infoFormValues}
-        updateTotal={updateTotalDebt}
-        updateRate={updateInterestRate}
-        updateYears={updateTermYears}
-        updateMonths={updateTermMonths}
-        infoSubmit={handleInfoSubmit}
-      />
-      <Display displayVals={display} />
+      
+      <Form update = {updateDisplay} />
+      
+      <div className="Display-container">
+        <h2>Display View</h2>
+      
+        <div className="main-display ">
+          <div className="text-container">
+            <p className="display-title">Est. Monthly Payment</p>
+            <p className="display-num">$ 0</p>
+          </div>
+          <div className="text-container">
+            <p className="display-title">Number Of Payments</p>
+            <p className="display-num">0 Left</p>
+          </div>
+          <div className="text-container">
+            <p className="display-title">Total Interest Paid</p>
+            <p className="display-num">$ 0</p>
+          </div>
+          <div className="text-container">
+            <p className="display-title">Total Principal Paid</p>
+            <p className="display-num">$ 0</p>
+          </div>
+          <button>See Amortization Schedule</button>
+        </div>
+      
+        <div className="hidden-display">
+          <div className="text-container">
+            <p className="display-title">Monthly Principal Payment</p>
+            <p className="display-num">$ 0</p>
+          </div>
+          <div className="text-container">
+            <p className="display-title">Monthly Interest Payment</p>
+            <p className="display-num">$ 0</p>
+          </div>
+          <div className="text-container">
+            <p className="display-title">Total Payment<br />(Principal + Interest)</p>
+            <p className="display-num">$ 0</p>
+          </div>
+          <div className="text-container">
+            <p className="display-title">Original Debt Amount</p>
+            <p className="display-num">$ {originalDebt}</p>
+          </div>
+          <button>See Main Schedule</button>
+        </div>
+    </div>
     </div>
   );
 }

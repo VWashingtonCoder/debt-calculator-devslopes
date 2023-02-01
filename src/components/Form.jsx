@@ -1,10 +1,63 @@
+import { useState } from "react";
 import "../styles/FormStyles.css";
 
 function Form(props) {
-  const { updateTotal, updateRate, updateYears, updateMonths, infoSubmit } =
-    props;
-  const { totalDebt, interestRate, years, months } = props.infoValues;
+  const { update } = props
+  const [infoForm, setInfoForm] = useState({
+    totalDebt: '',
+    interestRate: '',
+    years: '',
+    months: ''
+  })
+  const { totalDebt, interestRate, years, months } = infoForm;
+  /* Handlers */
+  function updateTotalDebt(evt) {
+    const inputVal = evt.target.value;
+    setInfoForm({ ...infoForm, totalDebt: inputVal });
+  }
+  function updateInterestRate(evt) {
+    const inputVal = evt.target.value;
+    setInfoForm({ ...infoForm, interestRate: inputVal });
+  }
+  function updateTermYears(evt) {
+    const inputVal = evt.target.value;
+    setInfoForm({ ...infoForm, years: inputVal });
+  }
+  function updateTermMonths(evt) {
+    const inputVal = evt.target.value;
+    console.log(inputVal);
+    setInfoForm({ ...infoForm, months: inputVal });
+  }
+  function validateForm() {
+    let valid = true;
+    
+    if (!totalDebt) {
+      alert("You are missing the total debt");
+      valid = false;
+    } else if (!interestRate) {
+      alert("You are missing the interest rate");
+      valid = false;
+    } else if (!years && !months) {
+      alert("Pick a term length");
+      valid = false;
+    }
+    return valid;
+  }
+  function handleInfoSubmit(evt) {
+    evt.preventDefault();
+    const valid = validateForm();
+    
+    if (valid) {
+      const data = {...infoForm};
+      update(data);
+    }
+  }
 
+ 
+ 
+ 
+ 
+ 
   return (
     <div className="Form-container">
       <form className="Info-form">
@@ -27,8 +80,9 @@ function Form(props) {
             type="number"
             id="totalDebt"
             name="total-debt"
-            onChange={updateTotal}
+            onChange={updateTotalDebt}
             value={totalDebt}
+            placeholder="0"
           />
         </div>
 
@@ -38,7 +92,8 @@ function Form(props) {
             type="number"
             id="interestRate"
             name="interest-rate"
-            onChange={updateRate}
+            placeholder="0"
+            onChange={updateInterestRate}
             value={interestRate}
           />
           <label htmlFor="interest-rate" id="interestRateLabel">
@@ -53,7 +108,8 @@ function Form(props) {
               type="number"
               id="termYears"
               name="term-years"
-              onChange={updateYears}
+              placeholder="0"
+              onChange={updateTermYears}
               value={years}
             />
             <label htmlFor="term-years" id="termYearsLabel">
@@ -66,7 +122,8 @@ function Form(props) {
               type="number"
               id="termMonths"
               name="term-months"
-              onChange={updateMonths}
+              placeholder="0"
+              onChange={updateTermMonths}
               value={months}
             />
             <label htmlFor="term-months" id="termMonthsLabel">
@@ -75,7 +132,7 @@ function Form(props) {
           </div>
         </div>
 
-        <button className="Submit-btn Info-form-btn" onClick={infoSubmit}>
+        <button className="Submit-btn Info-form-btn" onClick={handleInfoSubmit}>
           Calculate
         </button>
       </form>
