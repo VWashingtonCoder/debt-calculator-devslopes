@@ -25,7 +25,6 @@ function Form(props) {
   }
   function updateTermMonths(evt) {
     const inputVal = evt.target.value;
-    console.log(inputVal);
     setInfoForm({ ...infoForm, months: inputVal });
   }
   function validateForm() {
@@ -39,6 +38,9 @@ function Form(props) {
       valid = false;
     } else if (!years && !months) {
       alert("Pick a term length");
+      valid = false;
+    } else if(years && months){
+      alert("Pick only month(s) or year(s) term");
       valid = false;
     }
     return valid;

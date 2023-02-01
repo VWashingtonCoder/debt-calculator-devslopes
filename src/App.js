@@ -6,30 +6,37 @@ function App() {
   const [display, setDisplay] = useState({
     monthlyPayment: 0,
     paymentsLeft: 0,
-    totalInterest: 0,
-    totalPrincipal: 0,
     monthlyPrincipal: 0,
     monthlyInterest: 0,
-    totalPayment: 0,
     originalDebt: 0,
-  })
+  });
   const {
     monthlyPayment,
     paymentsLeft,
-    totalInterest,
-    totalPrincipal,
-    monthlyPrincipal, 
-    monthlyInterest, 
-    totalPayment, 
-    originalDebt 
+    monthlyPrincipal,
+    monthlyInterest,
+    originalDebt,
   } = display;
+ 
   /* Handlers */
-  function updateDisplay(data){
+  function updateDisplay(data) {
     const { totalDebt, interestRate, years, months } = data;
-    
-    console.log(totalDebt);
+    const term = years ? years * 12 : months;
+    const interestDecimal = interestRate * 0.01;
+    const monthlyInterest = ((interestDecimal / term) * totalDebt).toFixed(2);
+    const miniumPrincipal = (totalDebt * 0.01).toFixed(2);
+    const estMonthlyPayment = (
+      Number(miniumPrincipal) + Number(monthlyInterest)
+    ).toFixed(2);
 
-    setDisplay({...display, originalDebt: totalDebt})
+    setDisplay({
+      ...display,
+      monthlyPayment: estMonthlyPayment,
+      paymentsLeft: term,
+      monthlyPrincipal: miniumPrincipal,
+      monthlyInterest: monthlyInterest,
+      originalDebt: totalDebt,
+    });
   }
 
   return (
@@ -37,52 +44,32 @@ function App() {
       <header className="App-header">
         <h1>Debt Payoff Calculator</h1>
       </header>
-      
-      <Form update = {updateDisplay} />
-      
+
+      <Form update={updateDisplay} />
+
       <div className="Display-container">
-        <h2>Display View</h2>
-      
-        <div className="main-display ">
-          <div className="text-container">
-            <p className="display-title">Est. Monthly Payment</p>
-            <p className="display-num">$ 0</p>
-          </div>
-          <div className="text-container">
-            <p className="display-title">Number Of Payments</p>
-            <p className="display-num">0 Left</p>
-          </div>
-          <div className="text-container">
-            <p className="display-title">Total Interest Paid</p>
-            <p className="display-num">$ 0</p>
-          </div>
-          <div className="text-container">
-            <p className="display-title">Total Principal Paid</p>
-            <p className="display-num">$ 0</p>
-          </div>
-          <button>See Amortization Schedule</button>
+        <h2>Debt Payoff Plan</h2>
+        <div className="text-container">
+          <p className="display-title">Est. Monthly Payment</p>
+          <p className="display-num">$ {monthlyPayment}</p>
         </div>
-      
-        <div className="hidden-display">
-          <div className="text-container">
-            <p className="display-title">Monthly Principal Payment</p>
-            <p className="display-num">$ 0</p>
-          </div>
-          <div className="text-container">
-            <p className="display-title">Monthly Interest Payment</p>
-            <p className="display-num">$ 0</p>
-          </div>
-          <div className="text-container">
-            <p className="display-title">Total Payment<br />(Principal + Interest)</p>
-            <p className="display-num">$ 0</p>
-          </div>
-          <div className="text-container">
-            <p className="display-title">Original Debt Amount</p>
-            <p className="display-num">$ {originalDebt}</p>
-          </div>
-          <button>See Main Schedule</button>
+        <div className="text-container">
+          <p className="display-title">Original Debt Amount</p>
+          <p className="display-num">$ {originalDebt}</p>
         </div>
-    </div>
+        <div className="text-container">
+          <p className="display-title">Number Of Payments</p>
+          <p className="display-num">{paymentsLeft}</p>
+        </div>
+        <div className="text-container">
+          <p className="display-title">Minium Principal Payment</p>
+          <p className="display-num">$ {monthlyPrincipal}</p>
+        </div>
+        <div className="text-container">
+          <p className="display-title">Monthly Interest Payment</p>
+          <p className="display-num">$ {monthlyInterest}</p>
+        </div>
+      </div>
     </div>
   );
 }
