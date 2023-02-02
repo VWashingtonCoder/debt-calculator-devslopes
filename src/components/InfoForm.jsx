@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/FormStyles.css";
 
-function Form(props) {
+function InfoForm(props) {
   const { update } = props
   const [infoForm, setInfoForm] = useState({
     totalDebt: '',
@@ -142,4 +142,4 @@ function Form(props) {
   );
 }
 
-export default Form;
+export default InfoForm;

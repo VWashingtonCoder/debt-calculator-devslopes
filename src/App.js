@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
-import Form from "./components/Form.jsx";
+import InfoForm from "./components/InfoForm.jsx";
+import Table from "./components/Table";
 
 function App() {
   const [display, setDisplay] = useState({
@@ -10,7 +11,8 @@ function App() {
     monthlyInterest: 0,
     originalDebt: 0,
   });
-  const {
+  /* State Destructuring */
+ const {
     monthlyPayment,
     paymentsLeft,
     monthlyPrincipal,
@@ -45,7 +47,7 @@ function App() {
         <h1>Debt Payoff Calculator</h1>
       </header>
 
-      <Form update={updateDisplay} />
+      <InfoForm update={updateDisplay} />
 
       <div className="Display-container">
         <h2>Debt Payoff Plan</h2>
@@ -70,6 +72,9 @@ function App() {
           <p className="display-num">$ {monthlyInterest}</p>
         </div>
       </div>
+
+
+      <Table miniumPayment={monthlyPrincipal}/>
     </div>
   );
 }
