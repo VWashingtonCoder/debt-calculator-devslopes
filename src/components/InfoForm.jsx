@@ -1,7 +1,7 @@
 import "../styles/FormStyles.css";
 
 function InfoForm(props) {
-  const { updateForm, updateDisplay } = props;
+  const { total, rate, updateForm, updateDisplay } = props;
 
   return (
     <div className="Form-container">
@@ -27,6 +27,7 @@ function InfoForm(props) {
             name="total-debt"
             placeholder="0"
             onChange={updateForm}
+            value={total}
           />
         </div>
 
@@ -38,6 +39,7 @@ function InfoForm(props) {
             name="interest-rate"
             placeholder="0"
             onChange={updateForm}
+            value={rate}
           />
           <label htmlFor="interest-rate" id="interestRateLabel">
             %

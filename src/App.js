@@ -1,79 +1,129 @@
 import { useState } from "react";
 import "./App.css";
 import InfoForm from "./components/InfoForm.jsx";
+import Display from "./components/Display";
 import Table from "./components/Table";
 
 const initialStates = {
   infoForm: {
-    totalDebt: '',
-    interestRate: '',
+    totalDebt: "",
+    interestRate: "",
+  },
+  display: {
+    monthlyPayment: 0,
+    paymentsLeft: 0,
+    originalDebt: 0,
+  },
+  table: {
+    balance: 0,
+    rate: 0,
+    miniumPayment: 0,
+    payment: 0,
+    payments: []
   }
-}
-
+};
 
 function App() {
   /* State */
-  // InfoForm
-  const [infoForm, setInfoForm] = useState(initialStates.infoForm)
-  // Display
-  const [display, setDisplay] = useState({
-    monthlyPayment: 0,
-    paymentsLeft: 0,
-    monthlyPrincipal: 0,
-    monthlyInterest: 0,
-    originalDebt: 0,
-  });
-  // Table
-  const [payment, setPayment] = useState(0);
-  const [payments, setPayments] = useState([]);
+  const [infoForm, setInfoForm] = useState(initialStates.infoForm);
+  const [display, setDisplay] = useState(initialStates.display);
+  const [table, setTable] = useState(initialStates.table);
   /* State Destructuring */
- const {
-    monthlyPayment,
-    paymentsLeft,
-    monthlyPrincipal,
-    monthlyInterest,
-    originalDebt,
-  } = display;
- /* Helpers */
+  const { totalDebt, interestRate } = infoForm;
+  const { monthlyPayment, paymentsLeft, originalDebt } = display;
+  const { balance, rate, miniumPayment, payment, payments } = table
+  /* Helpers */
+  function getInterestAmount(rate, total){
+    const totalNum = Number(total);
+    const interestDecimal = rate * 0.01;
+    const interestAmount = ((interestDecimal / 12) * totalNum).toFixed(2);
+    return interestAmount;
+  }
+  function getMonthlyPayment() {
+    const interestAmount = getInterestAmount(interestRate, totalDebt);
+    const principalAmount = (totalDebt * 0.01).toFixed(2);
+    const estMonthly = (
+      Number(interestAmount) + Number(principalAmount)
+    ).toFixed(2);
 
+    return estMonthly;
+  }
+  function getPaymentsLeft() {
+    const estPayment = Number(getMonthlyPayment());
+    const numPayments = Math.round(Number(totalDebt) / estPayment)
+    return numPayments;
+  }
+  function updateBalance(paid){
+    const interestAmount = getInterestAmount(rate, balance);
+    const principalPayment = paid - interestAmount;
+    const newBalance = balance - principalPayment;
+    return newBalance;
+  }
   /* Handlers */
-  // InfoForm
   function updateInfoForm(e) {
     const value = e.target.value;
     const inputName = e.target.name;
-    inputName === 'total-debt'
+    inputName === "total-debt"
       ? setInfoForm({ ...infoForm, totalDebt: value })
       : setInfoForm({ ...infoForm, interestRate: value });
   }
-  function resetInfoForm() {
-    setInfoForm(initialStates.infoForm);
-  }
-  /* Display */
   function updateDisplay(e) {
     e.preventDefault();
-    console.log("success")
+    setDisplay({
+      ...display,
+      monthlyPayment: getMonthlyPayment(),
+      paymentsLeft: getPaymentsLeft(),
+      originalDebt: totalDebt,
+    });
+    setTable({
+      ...table,
+      balance: totalDebt,
+      rate: interestRate,
+      miniumPayment: getMonthlyPayment()
+    })
+    setInfoForm(initialStates.infoForm);
   }
   /* Table */
   function updatePayment(e) {
-    setPayment(e.target.value);
+    setTable({
+      ...table,
+      payment: e.target.value
+    });
   }
   function addToPayments(e) {
     e.preventDefault();
+    const btnClass = e.target.className;
     const paymentNo = payments.length + 1;
-    // if(payments >= miniumPrincipal)
-    setPayments([
-      ...payments,
-      {
-        rowKey: `row-${paymentNo}`,
-        payNo: paymentNo,
-        amountPaid: payment,
-        balance: "Function Needed",
-        principalPaid: "Function Needed",
-        interestPaid: "Function Needed",
-      },
-    ]);
+    let paymentMethod = 0;
 
-    console.log(payments);
+    if(!btnClass.includes('min') && payment < miniumPayment){
+      alert(`Minium Payment is ${miniumPayment}`)
+      return;
+    } 
+
+    btnClass.includes('min') 
+      ? paymentMethod = miniumPayment
+      : paymentMethod = payment
+
+    setTable({
+      ...table,
+      balance: updateBalance(paymentMethod),
+      payment: 0,
+      payments: [
+        ...payments, 
+        {
+          rowKey: `row-${paymentNo}`,
+          payNo: paymentNo,
+          amountPaid: paymentMethod,
+          balance: updateBalance(paymentMethod),
+        }
+      ]
+    })
+  }
+  function payMinium() {
+
+
+    updateBalance(miniumPayment)
   }
 
   return (
@@ -83,37 +133,20 @@ function App() {
       </header>
 
       <InfoForm
+        total={totalDebt}
+        rate={interestRate}
         updateForm={updateInfoForm}
-        updateDisplay={updateDisplay} 
+        updateDisplay={updateDisplay}
       />
-
-      <div className="Display-container">
-        <h2>Debt Payoff Plan</h2>
-        <div className="text-container">
-          <p className="display-title">Est. Monthly Payment</p>
-          <p className="display-num">$ {monthlyPayment}</p>
-        </div>
-        <div className="text-container">
-          <p className="display-title">Original Debt Amount</p>
-          <p className="display-num">$ {originalDebt}</p>
-        </div>
-        <div className="text-container">
-          <p className="display-title">Number Of Payments</p>
-          <p className="display-num">{paymentsLeft}</p>
-        </div>
-        <div className="text-container">
-          <p className="display-title">Minium Principal Payment</p>
-          <p className="display-num">$ {monthlyPrincipal}</p>
-        </div>
-        <div className="text-container">
-          <p className="display-title">Monthly Interest Payment</p>
-          <p className="display-num">$ {monthlyInterest}</p>
-        </div>
-      </div>
-
-      <Table 
+      <Display
+        estPayment={monthlyPayment}
+        numLeft={paymentsLeft}
+        original={originalDebt}
+      />
+      <Table
+        payment={payment}
         records={payments}
-        miniumPayment={monthlyPrincipal}
+        minium={miniumPayment}
         updatePayment={updatePayment}
         addToPayments={addToPayments}
       />

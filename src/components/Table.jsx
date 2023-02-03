@@ -1,31 +1,44 @@
 import "../styles/TableStyles.css";
 
 function Table(props) {
-  const { records, miniumPayment, updatePayment, addToPayments } = props;
+  const { 
+    payment,
+    records, 
+    minium, 
+    updatePayment, 
+    addToPayments 
+  } = props;
 
   return (
     <div className="Table-container">
       <div className="table-header">
         <h2>Make Payments</h2>
         <p>Minium Payment Required:</p>
-        <p>$ {miniumPayment}</p>
+        <p>$ {minium}</p>
       </div>
 
       <form className="pay-form">
         <label htmlFor="pay-amount" id="payLabel">
-          Amount
+          $
         </label>
         <input
           name="pay-amount"
           type="number"
           id="payInput"
-          min={miniumPayment}
+          placeholder="0"
+          min={minium}
           onChange={updatePayment}
+          value={payment}
         />
 
-        <button className="Submit-btn pay" onClick={addToPayments}>
-          Enter Payment
-        </button>
+        <div className="btn-group">
+          <button className="Submit-btn pay" onClick={addToPayments}>
+            Enter Payment
+          </button>
+          <button className="Submit-btn min" onClick={addToPayments}>
+            Use Minium Payment
+          </button>
+        </div>
       </form>
 
       <table className="payment-history">
@@ -33,8 +46,6 @@ function Table(props) {
           <th>Pay No</th>
           <th>Payment Amount</th>
           <th>Debt Balance</th>
-          <th>Principal Paid</th>
-          <th>Interest Paid</th>
         </tr>
         {records.map((record) => (
           <tr key={record.rowKey}>
@@ -42,16 +53,10 @@ function Table(props) {
                 {record.payNo}
             </td>
             <td key={record.amountPaid}>
-                {record.amountPaid}
+                $ {record.amountPaid}
             </td>
             <td key={record.balance}>
-                {record.balance}
-            </td>
-            <td key={record.principalPaid}>
-                {record.principalPaid}
-            </td>
-            <td key={record.interestPaid}>
-                {record.interestPaid}
+                $ {record.balance}
             </td>
           </tr>
         ))}
