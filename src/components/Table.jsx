@@ -1,36 +1,63 @@
+import "../styles/TableStyles.css";
+
 function Table(props) {
-    console.log(props);
-    const { miniumPayment } = props;
-    return (
-        <div className="Table">
-            <h2>Table View</h2>
+  const { records, miniumPayment, updatePayment, addToPayments } = props;
 
-            <form className="pay-form">
-                <p>Enter Your Payment Amount</p>
-                <div>
-                    <label  
-                        htmlFor="pay-amount"
-                        id="payLabel"
-                    ></label>
-                    <input 
-                        name="pay-amount" type="number" id="payInput"
-                        min={miniumPayment}
-                    />
-                </div>
-                <p>Minium Payment Required: $ {miniumPayment}</p>
-                <button className="Submit-btn pay">Enter Payment</button>
-            </form>
+  return (
+    <div className="Table-container">
+      <div className="table-header">
+        <h2>Make Payments</h2>
+        <p>Minium Payment Required:</p>
+        <p>$ {miniumPayment}</p>
+      </div>
 
-            <table className="payment-history">
-                <tr>
-                    <th>No.</th>
-                    <th>Payment Amount</th>
-                    <th>Interest/ Principal Paid</th>
-                    <th>Debt Balance</th>
-                </tr>
-            </table>
-        </div>
-    )
+      <form className="pay-form">
+        <label htmlFor="pay-amount" id="payLabel">
+          Amount
+        </label>
+        <input
+          name="pay-amount"
+          type="number"
+          id="payInput"
+          min={miniumPayment}
+          onChange={updatePayment}
+        />
+
+        <button className="Submit-btn pay" onClick={addToPayments}>
+          Enter Payment
+        </button>
+      </form>
+
+      <table className="payment-history">
+        <tr>
+          <th>Pay No</th>
+          <th>Payment Amount</th>
+          <th>Debt Balance</th>
+          <th>Principal Paid</th>
+          <th>Interest Paid</th>
+        </tr>
+        {records.map((record) => (
+          <tr key={record.rowKey}>
+            <td key={record.payNo}>
+                {record.payNo}
+            </td>
+            <td key={record.amountPaid}>
+                {record.amountPaid}
+            </td>
+            <td key={record.balance}>
+                {record.balance}
+            </td>
+            <td key={record.principalPaid}>
+                {record.principalPaid}
+            </td>
+            <td key={record.interestPaid}>
+                {record.interestPaid}
+            </td>
+          </tr>
+        ))}
+      </table>
+    </div>
+  );
 }
 
 export default Table;
