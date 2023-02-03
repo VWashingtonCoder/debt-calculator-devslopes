@@ -4,6 +4,7 @@ import InfoForm from "./components/InfoForm.jsx";
 import Table from "./components/Table";
 
 function App() {
+  /* State */
   const [display, setDisplay] = useState({
     monthlyPayment: 0,
     paymentsLeft: 0,
@@ -11,6 +12,8 @@ function App() {
     monthlyInterest: 0,
     originalDebt: 0,
   });
+  const [payment, setPayment] = useState(0);
+  const [payments, setPayments] = useState([]);
   /* State Destructuring */
  const {
     monthlyPayment,
@@ -19,8 +22,15 @@ function App() {
     monthlyInterest,
     originalDebt,
   } = display;
- 
+ /* Helpers */
+  /* Table */
+  function getBalance(payment) {
+
+  }
+
+
   /* Handlers */
+  /* Display */
   function updateDisplay(data) {
     const { totalDebt, interestRate, years, months } = data;
     const term = years ? years * 12 : months;
@@ -39,6 +49,28 @@ function App() {
       monthlyInterest: monthlyInterest,
       originalDebt: totalDebt,
     });
+  }
+  /* Table */
+  function updatePayment(e) {
+    setPayment(e.target.value);
+  }
+  function addToPayments(e) {
+    e.preventDefault();
+    const paymentNo = payments.length + 1;
+    if(payments >= miniumPrincipal)
+    setPayments([
+      ...payments,
+      {
+        rowKey: `row-${paymentNo}`,
+        payNo: paymentNo,
+        amountPaid: payment,
+        balance: "Function Needed",
+        principalPaid: "Function Needed",
+        interestPaid: "Function Needed",
+      },
+    ]);
+
+    console.log(payments);
   }
 
   return (
@@ -73,8 +105,12 @@ function App() {
         </div>
       </div>
 
-
-      <Table miniumPayment={monthlyPrincipal}/>
+      <Table 
+        records={payments}
+        miniumPayment={monthlyPrincipal}
+        updatePayment={updatePayment}
+        addToPayments={addToPayments}
+      />
     </div>
   );
 }
