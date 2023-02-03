@@ -3,8 +3,19 @@ import "./App.css";
 import InfoForm from "./components/InfoForm.jsx";
 import Table from "./components/Table";
 
+const initialStates = {
+  infoForm: {
+    totalDebt: '',
+    interestRate: '',
+  }
+}
+
+
 function App() {
   /* State */
+  // InfoForm
+  const [infoForm, setInfoForm] = useState(initialStates.infoForm)
+  // Display
   const [display, setDisplay] = useState({
     monthlyPayment: 0,
     paymentsLeft: 0,
@@ -12,6 +23,7 @@ function App() {
     monthlyInterest: 0,
     originalDebt: 0,
   });
+  // Table
   const [payment, setPayment] = useState(0);
   const [payments, setPayments] = useState([]);
   /* State Destructuring */
@@ -23,32 +35,23 @@ function App() {
     originalDebt,
   } = display;
  /* Helpers */
-  /* Table */
-  function getBalance(payment) {
-
-  }
-
 
   /* Handlers */
+  // InfoForm
+  function updateInfoForm(e) {
+    const value = e.target.value;
+    const inputName = e.target.name;
+    inputName === 'total-debt'
+      ? setInfoForm({ ...infoForm, totalDebt: value })
+      : setInfoForm({ ...infoForm, interestRate: value });
+  }
+  function resetInfoForm() {
+    setInfoForm(initialStates.infoForm);
+  }
   /* Display */
-  function updateDisplay(data) {
-    const { totalDebt, interestRate, years, months } = data;
-    const term = years ? years * 12 : months;
-    const interestDecimal = interestRate * 0.01;
-    const monthlyInterest = ((interestDecimal / term) * totalDebt).toFixed(2);
-    const miniumPrincipal = (totalDebt * 0.01).toFixed(2);
-    const estMonthlyPayment = (
-      Number(miniumPrincipal) + Number(monthlyInterest)
-    ).toFixed(2);
-
-    setDisplay({
-      ...display,
-      monthlyPayment: estMonthlyPayment,
-      paymentsLeft: term,
-      monthlyPrincipal: miniumPrincipal,
-      monthlyInterest: monthlyInterest,
-      originalDebt: totalDebt,
-    });
+  function updateDisplay(e) {
+    e.preventDefault();
+    console.log("success")
   }
   /* Table */
   function updatePayment(e) {
@@ -57,7 +60,7 @@ function App() {
   function addToPayments(e) {
     e.preventDefault();
     const paymentNo = payments.length + 1;
-    if(payments >= miniumPrincipal)
+    // if(payments >= miniumPrincipal)
     setPayments([
       ...payments,
       {
@@ -79,7 +82,10 @@ function App() {
         <h1>Debt Payoff Calculator</h1>
       </header>
 
-      <InfoForm update={updateDisplay} />
+      <InfoForm
+        updateForm={updateInfoForm}
+        updateDisplay={updateDisplay} 
+      />
 
       <div className="Display-container">
         <h2>Debt Payoff Plan</h2>
