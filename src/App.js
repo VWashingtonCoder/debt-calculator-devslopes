@@ -19,8 +19,8 @@ const initialStates = {
     rate: 0,
     miniumPayment: 0,
     payment: 0,
-    payments: []
-  }
+    payments: [],
+  },
 };
 
 function App() {
@@ -31,32 +31,40 @@ function App() {
   /* State Destructuring */
   const { totalDebt, interestRate } = infoForm;
   const { monthlyPayment, paymentsLeft, originalDebt } = display;
-  const { balance, rate, miniumPayment, payment, payments } = table
+  const { balance, rate, miniumPayment, payment, payments } = table;
   /* Helpers */
-  function getInterestAmount(rate, total){
+  function getInterestAmount(rate, total) {
     const totalNum = Number(total);
     const interestDecimal = rate * 0.01;
     const interestAmount = ((interestDecimal / 12) * totalNum).toFixed(2);
     return interestAmount;
   }
-  function getMonthlyPayment() {
-    const interestAmount = getInterestAmount(interestRate, totalDebt);
-    const principalAmount = (totalDebt * 0.01).toFixed(2);
-    const estMonthly = (
-      Number(interestAmount) + Number(principalAmount)
-    ).toFixed(2);
+  function getMiniumPayment(balance, rate) {
+    let minPay = 0;
+    const interest = Number(getInterestAmount(rate, balance));
+    const principal = balance * 0.01;
 
-    return estMonthly;
+    balance <= 100
+      ? (minPay = Number(balance) + principal)
+      : (minPay = interest + principal);
+
+    console.log(minPay);
+    return minPay;
   }
-  function getPaymentsLeft() {
-    const estPayment = Number(getMonthlyPayment());
-    const numPayments = Math.round(Number(totalDebt) / estPayment)
+  function getPaymentsLeft(balance) {
+    const principalAmount = balance * 0.01;
+    console.log(balance);
+    console.log(principalAmount);
+    const numPayments =
+      balance <= 100 ? 1 : Math.round(balance / principalAmount);
+
+    console.log(numPayments);
     return numPayments;
   }
-  function updateBalance(paid){
+  function updateBalance(paid) {
     const interestAmount = getInterestAmount(rate, balance);
     const principalPayment = paid - interestAmount;
-    const newBalance = balance - principalPayment;
+    const newBalance = (balance - principalPayment).toFixed(2);
     return newBalance;
   }
   /* Handlers */
@@ -69,25 +77,27 @@ function App() {
   }
   function updateDisplay(e) {
     e.preventDefault();
+    const miniumMonthly = getMiniumPayment(totalDebt, interestRate);
+
     setDisplay({
       ...display,
-      monthlyPayment: getMonthlyPayment(),
-      paymentsLeft: getPaymentsLeft(),
+      monthlyPayment: miniumMonthly.toFixed(2),
+      paymentsLeft: getPaymentsLeft(totalDebt),
       originalDebt: totalDebt,
     });
     setTable({
       ...table,
       balance: totalDebt,
       rate: interestRate,
-      miniumPayment: getMonthlyPayment()
-    })
+      miniumPayment: miniumMonthly.toFixed(2),
+    });
     setInfoForm(initialStates.infoForm);
   }
   /* Table */
   function updatePayment(e) {
     setTable({
       ...table,
-      payment: e.target.value
+      payment: e.target.value,
     });
   }
   function addToPayments(e) {
@@ -96,34 +106,33 @@ function App() {
     const paymentNo = payments.length + 1;
     let paymentMethod = 0;
 
-    if(!btnClass.includes('min') && payment < miniumPayment){
-      alert(`Minium Payment is ${miniumPayment}`)
+    if (!btnClass.includes("min") && payment < miniumPayment) {
+      alert(`Minium Payment is ${miniumPayment}`);
       return;
-    } 
+    }
 
-    btnClass.includes('min') 
-      ? paymentMethod = miniumPayment
-      : paymentMethod = payment
+    btnClass.includes("min")
+      ? (paymentMethod = miniumPayment)
+      : (paymentMethod = payment);
+
+    const newBalance = Number(updateBalance(paymentMethod)).toFixed(2);
 
     setTable({
       ...table,
-      balance: updateBalance(paymentMethod),
-      payment: 0,
+      balance: Number(newBalance).toFixed(2),
+      miniumPayment:
+        newBalance <= 0 ? 0 : getMiniumPayment(newBalance, rate).toFixed(2),
+      payment: "",
       payments: [
-        ...payments, 
+        ...payments,
         {
           rowKey: `row-${paymentNo}`,
           payNo: paymentNo,
           amountPaid: paymentMethod,
-          balance: updateBalance(paymentMethod),
-        }
-      ]
-    })
-  }
-  function payMinium() {
-
-
-    updateBalance(miniumPayment)
+          balance: newBalance <= 0 ? 0 : newBalance,
+        },
+      ],
+    });
   }
 
   return (
