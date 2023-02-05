@@ -1,0 +1,44 @@
+.Table-container {
+    background-color: var(--bg-blue);
+    width: 90vw;
+    margin: auto;
+    border: 2px solid var(--white-text);
+    padding-bottom: 1.5rem;
+}
+.table-header {
+    margin-bottom: 0.75rem;
+}
+.minium-needed {
+    font-size: 20px;
+    margin-top: 5px;
+}
+.pay-form {
+    margin-bottom: 1.3rem;
+}
+#payLabel {
+    color: var(--black-text);
+    position: absolute;
+    top: 56.35rem;
+    left: 5.5rem;
+}
+#payInput {
+    margin-bottom: 10px;
+    padding: 4px;
+    padding-left: 20px;
+    width: 40vw;
+    border-radius: 5px;
+    border: 1.75px solid var(--black-text);
+}
+.btn-group {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.btn-group .Submit-btn {
+    font-size: 15px;
+}
+.payment-history {
+    border: 2px solid var(--white-text);
+    width: 90%;
+    margin: auto;
+}

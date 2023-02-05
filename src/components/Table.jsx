@@ -14,7 +14,7 @@ function Table(props) {
       <div className="table-header">
         <h2>Make Payments</h2>
         <p>Minium Payment Required:</p>
-        <p>$ {minium}</p>
+        <p className="minium-needed">$ {minium}</p>
       </div>
 
       <form className="pay-form">
