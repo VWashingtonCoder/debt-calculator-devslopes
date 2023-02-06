@@ -1,5 +1,3 @@
-import "../styles/TableStyles.css";
-
 function Table(props) {
   const { 
     payment,

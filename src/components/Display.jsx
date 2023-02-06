@@ -1,5 +1,3 @@
-import "../styles/DisplayStyles.css";
-
 function Display(props) {
     const { estPayment, numLeft, original } = props;
     

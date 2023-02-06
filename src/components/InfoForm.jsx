@@ -1,5 +1,3 @@
-import "../styles/FormStyles.css";
-
 function InfoForm(props) {
   const { total, rate, updateForm, updateDisplay } = props;
 

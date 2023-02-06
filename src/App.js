@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import "./styles/CompStyles.css";
 import InfoForm from "./components/InfoForm.jsx";
 import Display from "./components/Display";
 import Table from "./components/Table";
