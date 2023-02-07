@@ -11,8 +11,10 @@ function Table(props) {
     <div className="Table-container">
       <div className="table-header">
         <h2>Make Payments</h2>
-        <p>Minium Payment Required:</p>
-        <p className="minium-needed">$ {minium}</p>
+        <div className="minium-text">
+          <p>Minium Payment Required:</p>
+          <p className="minium-needed">$ {minium}</p>
+        </div>
       </div>
 
       <form className="pay-form">
@@ -41,9 +43,9 @@ function Table(props) {
 
       <table className="payment-history">
         <tr>
-          <th>Pay No</th>
-          <th>Payment Amount</th>
-          <th>Debt Balance</th>
+          <th>No</th>
+          <th>Amount</th>
+          <th>Balance</th>
         </tr>
         {records.map((record) => (
           <tr key={record.rowKey}>

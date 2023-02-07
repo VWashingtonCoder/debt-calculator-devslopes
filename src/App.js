@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import "./styles/CompStyles.css";
+import "./styles/ResponsiveStyles.css"
 import InfoForm from "./components/InfoForm.jsx";
 import Display from "./components/Display";
 import Table from "./components/Table";
@@ -141,18 +142,20 @@ function App() {
       <header className="App-header">
         <h1>Debt Payoff Calculator</h1>
       </header>
-
-      <InfoForm
-        total={totalDebt}
-        rate={interestRate}
-        updateForm={updateInfoForm}
-        updateDisplay={updateDisplay}
-      />
-      <Display
-        estPayment={monthlyPayment}
-        numLeft={paymentsLeft}
-        original={originalDebt}
-      />
+      <div className="info-view">
+        <InfoForm
+          total={totalDebt}
+          rate={interestRate}
+          updateForm={updateInfoForm}
+          updateDisplay={updateDisplay}
+        />
+        <Display
+          estPayment={monthlyPayment}
+          numLeft={paymentsLeft}
+          original={originalDebt}
+        />
+      </div>
+      
       <Table
         payment={payment}
         records={payments}
