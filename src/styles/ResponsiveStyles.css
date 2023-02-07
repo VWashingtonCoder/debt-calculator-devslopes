@@ -81,5 +81,66 @@
   }
 }
 @media (min-width: 1440px) {
-    
+    .Info-form {
+      font-size: 20px;
+    }
+    .Form-body, .text-container {
+      display: flex;
+      align-items: center;
+    }
+    .Form-body {
+      justify-content: space-around;
+    }
+    .Form-input-container input {
+      font-size: 20px;
+      max-width: 18vw;
+    }
+    .Form-input-container #totalDebtLabel {
+      top: 18.5rem;
+      left: 5.75rem;
+    }
+    .Form-input-container #interestRateLabel {
+      top: 18.5rem;
+      left: 45.2rem;
+    }
+    .Info-form-btn {
+      margin-left: 45px;
+    }
+    .Display-container h2, .table-header h2 {
+      font-size: 28px;
+    }
+    .text-container {
+      justify-content: space-between;
+    }
+    .display-title, .display-num {
+      font-size: 22px;
+    }
+    .minium-text {
+      font-size: 23px;
+    }
+    .pay-form {
+      display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    }
+    #payInput {
+    font-size: 20px;
+    width: 20vw;
+    }
+    .btn-group .Submit-btn {
+      font-size: 17px;
+  }
+  #payLabel {
+    left:  25.9rem;
+    font-size: 18px;
+  }
+  .payment-history th {
+    font-size: 25px;
+  }
+  .payment-history td {
+    font-size: 22px;
+  }
+}
+@media (min-width: 1920px) {
+  
 }

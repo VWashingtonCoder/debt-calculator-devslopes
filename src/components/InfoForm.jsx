@@ -13,36 +13,38 @@ function InfoForm(props) {
             Start with your details.
           </p>
         </header>
+        <div className="Form-body">
+          <div className="Form-input-container">
+            <p>Total Debt Amount</p>
+            <label htmlFor="total-debt" id="totalDebtLabel">
+              $
+            </label>
+            <input
+              type="number"
+              id="totalDebt"
+              name="total-debt"
+              placeholder="0"
+              onChange={updateForm}
+              value={total}
+            />
+          </div>
 
-        <div className="Form-input-container">
-          <p>Total Debt Amount</p>
-          <label htmlFor="total-debt" id="totalDebtLabel">
-            $
-          </label>
-          <input
-            type="number"
-            id="totalDebt"
-            name="total-debt"
-            placeholder="0"
-            onChange={updateForm}
-            value={total}
-          />
+          <div className="Form-input-container">
+            <p>Estimated Interest Rate</p>
+            <input
+              type="number"
+              id="interestRate"
+              name="interest-rate"
+              placeholder="0"
+              onChange={updateForm}
+              value={rate}
+            />
+            <label htmlFor="interest-rate" id="interestRateLabel">
+              %
+            </label>
+          </div>
         </div>
-
-        <div className="Form-input-container">
-          <p>Estimated Interest Rate</p>
-          <input
-            type="number"
-            id="interestRate"
-            name="interest-rate"
-            placeholder="0"
-            onChange={updateForm}
-            value={rate}
-          />
-          <label htmlFor="interest-rate" id="interestRateLabel">
-            %
-          </label>
-        </div>
+        
         
         <button className="Submit-btn Info-form-btn" onClick={updateDisplay}>
           Calculate
