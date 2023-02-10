@@ -1,6 +1,12 @@
-function InfoForm(props) {
-  const { total, rate, updateForm, updateDisplay } = props;
+import { useState } from "react";
 
+const inputs = [
+  { id: 1, title: "Total Debt Amount" }
+]
+
+const InfoForm = (props) => {
+  const { total, rate } = props;
+  
   return (
     <div className="Form-container">
       <form className="Info-form">
@@ -8,15 +14,30 @@ function InfoForm(props) {
           <p>
             Determine your estimated payments for different debt amounts,
             interest rates & terms.
-            <br />
-            <br />
+            <br /><br />
             Start with your details.
           </p>
         </header>
+
         <div className="Form-body">
-          <div className="Form-input-container">
-            <p>Total Debt Amount</p>
-            <label htmlFor="total-debt" id="totalDebtLabel">
+          { inputs.map((item) => {
+            const { id, title } = item;
+
+            return(
+              <div className="Form-input-container" key={id}>
+                <p>{title}</p>
+
+              </div>
+            )
+
+
+          }) }
+        
+          <div >
+            
+            <label 
+              htmlFor="totalDebt" 
+              className="label totalDebt"            >
               $
             </label>
             <input
@@ -24,7 +45,7 @@ function InfoForm(props) {
               id="totalDebt"
               name="total-debt"
               placeholder="0"
-              onChange={updateForm}
+              // onChange={updateForm}
               value={total}
             />
           </div>
@@ -36,7 +57,7 @@ function InfoForm(props) {
               id="interestRate"
               name="interest-rate"
               placeholder="0"
-              onChange={updateForm}
+              // onChange={updateForm}
               value={rate}
             />
             <label htmlFor="interest-rate" id="interestRateLabel">
@@ -46,7 +67,10 @@ function InfoForm(props) {
         </div>
         
         
-        <button className="Submit-btn Info-form-btn" onClick={updateDisplay}>
+        <button 
+          className="Submit-btn Info-form-btn" 
+          // onClick={updateDisplay}
+        >
           Calculate
         </button>
       </form>

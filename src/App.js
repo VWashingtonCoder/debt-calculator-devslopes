@@ -2,74 +2,20 @@ import { useState } from "react";
 import "./App.css";
 import "./styles/CompStyles.css";
 import "./styles/ResponsiveStyles.css"
-import InfoForm from "./components/InfoForm.jsx";
-import Display from "./components/Display";
-import Table from "./components/Table";
+import Calculator from "./Calculator";
 
-const initialStates = {
-  infoForm: {
-    totalDebt: "",
-    interestRate: "",
-  },
-  display: {
-    monthlyPayment: 0,
-    paymentsLeft: 0,
-    originalDebt: 0,
-  },
-  table: {
-    balance: 0,
-    rate: 0,
-    miniumPayment: 0,
-    payment: 0,
-    payments: [],
-  },
-};
+
 
 function App() {
-  /* State */
+  /*
   const [infoForm, setInfoForm] = useState(initialStates.infoForm);
   const [display, setDisplay] = useState(initialStates.display);
   const [table, setTable] = useState(initialStates.table);
-  /* State Destructuring */
+  
   const { totalDebt, interestRate } = infoForm;
   const { monthlyPayment, paymentsLeft, originalDebt } = display;
   const { balance, rate, miniumPayment, payment, payments } = table;
-  /* Helpers */
-  function getInterestAmount(rate, total) {
-    const totalNum = Number(total);
-    const interestDecimal = rate * 0.01;
-    const interestAmount = ((interestDecimal / 12) * totalNum).toFixed(2);
-    return interestAmount;
-  }
-  function getMiniumPayment(balance, rate) {
-    let minPay = 0;
-    const interest = Number(getInterestAmount(rate, balance));
-    const principal = balance * 0.01;
-
-    balance <= 100
-      ? (minPay = Number(balance) + principal)
-      : (minPay = interest + principal);
-
-    console.log(minPay);
-    return minPay;
-  }
-  function getPaymentsLeft(balance) {
-    const principalAmount = balance * 0.01;
-    console.log(balance);
-    console.log(principalAmount);
-    const numPayments =
-      balance <= 100 ? 1 : Math.round(balance / principalAmount);
-
-    console.log(numPayments);
-    return numPayments;
-  }
-  function updateBalance(paid) {
-    const interestAmount = getInterestAmount(rate, balance);
-    const principalPayment = paid - interestAmount;
-    const newBalance = (balance - principalPayment).toFixed(2);
-    return newBalance;
-  }
-  /* Handlers */
+  
   function updateInfoForm(e) {
     const value = e.target.value;
     const inputName = e.target.name;
@@ -95,7 +41,7 @@ function App() {
     });
     setInfoForm(initialStates.infoForm);
   }
-  /* Table */
+  
   function updatePayment(e) {
     setTable({
       ...table,
@@ -137,11 +83,17 @@ function App() {
     });
   }
 
+  */
+  
   return (
     <div className="App">
       <header className="App-header">
         <h1>Debt Payoff Calculator</h1>
       </header>
+      
+      <Calculator />
+      
+      {/* 
       <div className="info-view">
         <InfoForm
           total={totalDebt}
@@ -163,6 +115,7 @@ function App() {
         updatePayment={updatePayment}
         addToPayments={addToPayments}
       />
+      */}
     </div>
   );
 }
