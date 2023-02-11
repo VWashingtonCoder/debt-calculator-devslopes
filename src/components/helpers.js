@@ -14,12 +14,14 @@ export function getMiniumPayment(balance, rate) {
     return minPay;
 }
 
-//   function getPaymentsLeft(balance) {
-//     const principalAmount = balance * 0.01;
-//     const numPayments =
-//       balance <= 100 ? 1 : Math.round(balance / principalAmount);
-//     return numPayments;
-//   }
+export function getPaymentsLeft(principal, rate, minPay) {
+    const interestTotal = getInterestAmount(principal, rate);
+    const totalDebt = Number((principal + interestTotal).toFixed(2));
+    const paymentNum = Math.ceil(totalDebt / minPay);
+    return paymentNum;
+}
+
+
 //   function updateBalance(paid) {
 //     const interestAmount = getInterestAmount(rate, balance);
 //     const principalPayment = paid - interestAmount;

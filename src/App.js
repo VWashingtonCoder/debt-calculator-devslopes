@@ -1,17 +1,9 @@
-import { useState } from "react";
 import "./App.css";
 import "./styles/CompStyles.css";
 import "./styles/ResponsiveStyles.css"
-import InfoForm from "./components/InfoForm/InfoForm.jsx";
-import Display from "./components/Display";
-import Table from "./components/Table";
+import DebtCalcApp from "./DebtCalcApp";
 
 const initialStates = {
-  display: {
-    monthlyPayment: 0,
-    paymentsLeft: 0,
-    originalDebt: 0,
-  },
   table: {
     balance: 0,
     rate: 0,
@@ -22,18 +14,13 @@ const initialStates = {
 };
 
 function App() {
-  /* State */
-  const [estPayment, setEstPayment] = useState(0);
-
-  const [display, setDisplay] = useState(initialStates.display);
+  /*
   const [table, setTable] = useState(initialStates.table);
-  /* State Destructuring */
-  const { monthlyPayment, paymentsLeft, originalDebt } = display;
+
   const { balance, rate, miniumPayment, payment, payments } = table;
-  /* Handlers */
-  function updateDisplay(total, rate) {
-    console.log(`total: ${total}, type: ${typeof total}`);
-    console.log(`rate: ${rate}, type: ${typeof rate}`);
+  */
+  // function updateDisplay(total, rate) {
+    
     /*
     const miniumMonthly = getMiniumPayment(totalDebt, interestRate);
 
@@ -51,7 +38,7 @@ function App() {
     });
     setInfoForm(initialStates.infoForm);
     */
-  }
+  // }
   
   /* 
   function updatePayment(e) {
@@ -100,22 +87,8 @@ function App() {
       <header className="App-header">
         <h1>Debt Payoff Calculator</h1>
       </header>
-      <div className="info-view">
-        <InfoForm updateDisplay={updateDisplay} />
-        <Display
-          estPayment={monthlyPayment}
-          numLeft={paymentsLeft}
-          original={originalDebt}
-        />
-      </div>
-      
-      <Table
-        payment={payment}
-        records={payments}
-        minium={miniumPayment}
-        // updatePayment={updatePayment}
-        // addToPayments={addToPayments}
-      />
+   
+      <DebtCalcApp />
     </div>
   );
 }
