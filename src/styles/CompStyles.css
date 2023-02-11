@@ -30,11 +30,11 @@
 .Form-input-container label {
   position: absolute;
 }
-.Form-input-container #totalDebtLabel {
+.Form-input-container #tdLabel {
   left: 2.4rem;
   top: 17.825rem;
 }
-.Form-input-container #interestRateLabel {
+.Form-input-container #irLabel {
     top: 21.85rem;
     left: 9rem;
 }

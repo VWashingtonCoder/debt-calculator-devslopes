@@ -2,15 +2,11 @@ import { useState } from "react";
 import "./App.css";
 import "./styles/CompStyles.css";
 import "./styles/ResponsiveStyles.css"
-import InfoForm from "./components/InfoForm.jsx";
+import InfoForm from "./components/InfoForm/InfoForm.jsx";
 import Display from "./components/Display";
 import Table from "./components/Table";
 
 const initialStates = {
-  infoForm: {
-    totalDebt: "",
-    interestRate: "",
-  },
   display: {
     monthlyPayment: 0,
     paymentsLeft: 0,
@@ -27,58 +23,18 @@ const initialStates = {
 
 function App() {
   /* State */
-  const [infoForm, setInfoForm] = useState(initialStates.infoForm);
+  const [estPayment, setEstPayment] = useState(0);
+
   const [display, setDisplay] = useState(initialStates.display);
   const [table, setTable] = useState(initialStates.table);
   /* State Destructuring */
-  const { totalDebt, interestRate } = infoForm;
   const { monthlyPayment, paymentsLeft, originalDebt } = display;
   const { balance, rate, miniumPayment, payment, payments } = table;
-  /* Helpers */
-  function getInterestAmount(rate, total) {
-    const totalNum = Number(total);
-    const interestDecimal = rate * 0.01;
-    const interestAmount = ((interestDecimal / 12) * totalNum).toFixed(2);
-    return interestAmount;
-  }
-  function getMiniumPayment(balance, rate) {
-    let minPay = 0;
-    const interest = Number(getInterestAmount(rate, balance));
-    const principal = balance * 0.01;
-
-    balance <= 100
-      ? (minPay = Number(balance) + principal)
-      : (minPay = interest + principal);
-
-    console.log(minPay);
-    return minPay;
-  }
-  function getPaymentsLeft(balance) {
-    const principalAmount = balance * 0.01;
-    console.log(balance);
-    console.log(principalAmount);
-    const numPayments =
-      balance <= 100 ? 1 : Math.round(balance / principalAmount);
-
-    console.log(numPayments);
-    return numPayments;
-  }
-  function updateBalance(paid) {
-    const interestAmount = getInterestAmount(rate, balance);
-    const principalPayment = paid - interestAmount;
-    const newBalance = (balance - principalPayment).toFixed(2);
-    return newBalance;
-  }
   /* Handlers */
-  function updateInfoForm(e) {
-    const value = e.target.value;
-    const inputName = e.target.name;
-    inputName === "total-debt"
-      ? setInfoForm({ ...infoForm, totalDebt: value })
-      : setInfoForm({ ...infoForm, interestRate: value });
-  }
-  function updateDisplay(e) {
-    e.preventDefault();
+  function updateDisplay(total, rate) {
+    console.log(`total: ${total}, type: ${typeof total}`);
+    console.log(`rate: ${rate}, type: ${typeof rate}`);
+    /*
     const miniumMonthly = getMiniumPayment(totalDebt, interestRate);
 
     setDisplay({
@@ -94,8 +50,10 @@ function App() {
       miniumPayment: miniumMonthly.toFixed(2),
     });
     setInfoForm(initialStates.infoForm);
+    */
   }
-  /* Table */
+  
+  /* 
   function updatePayment(e) {
     setTable({
       ...table,
@@ -136,19 +94,14 @@ function App() {
       ],
     });
   }
-
+*/
   return (
     <div className="App">
       <header className="App-header">
         <h1>Debt Payoff Calculator</h1>
       </header>
       <div className="info-view">
-        <InfoForm
-          total={totalDebt}
-          rate={interestRate}
-          updateForm={updateInfoForm}
-          updateDisplay={updateDisplay}
-        />
+        <InfoForm updateDisplay={updateDisplay} />
         <Display
           estPayment={monthlyPayment}
           numLeft={paymentsLeft}
@@ -160,8 +113,8 @@ function App() {
         payment={payment}
         records={payments}
         minium={miniumPayment}
-        updatePayment={updatePayment}
-        addToPayments={addToPayments}
+        // updatePayment={updatePayment}
+        // addToPayments={addToPayments}
       />
     </div>
   );

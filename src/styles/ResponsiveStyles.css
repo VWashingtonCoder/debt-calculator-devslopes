@@ -1,9 +1,9 @@
 @media (min-width: 375px) {
-  .Form-input-container #totalDebtLabel {
+  .Form-input-container #tdLabel {
     top: 18.3rem;
     left: 2.7rem;
   }
-  .Form-input-container #interestRateLabel {
+  .Form-input-container #irLabel {
     top: 22.25rem;
     left: 10.5rem;
   }
@@ -13,11 +13,11 @@
   }
 }
 @media (min-width: 425px) {
-  .Form-input-container #totalDebtLabel {
+  .Form-input-container #tdLabel {
     top: 18.9rem;
     left: 3rem;
   }
-  .Form-input-container #interestRateLabel {
+  .Form-input-container #irLabel {
     top: 22.85rem;
     left: 12rem;
   }
@@ -50,11 +50,11 @@
   .Form-container {
     max-width: 55vw;
   }
-  .Form-input-container #totalDebtLabel {
+  .Form-input-container #tdLabel {
     top: 16.1rem;
     left: 2.2rem;
   }
-  .Form-input-container #interestRateLabel {
+  .Form-input-container #irLabel {
     top: 20.1rem;
     left: 18.5rem;
   }
@@ -73,7 +73,7 @@
   .Form-input-container input {
     max-width: 26vw;
   }
-  .Form-input-container #totalDebtLabel {
+  .Form-input-container #tdLabel {
     left: 2.5rem;
   }
   #payLabel {
@@ -96,11 +96,11 @@
     font-size: 20px;
     max-width: 18vw;
   }
-  .Form-input-container #totalDebtLabel {
+  .Form-input-container #tdLabel {
     top: 18.5rem;
     left: 5.75rem;
   }
-  .Form-input-container #interestRateLabel {
+  .Form-input-container #irLabel {
     top: 18.5rem;
     left: 45.2rem;
   }
@@ -156,14 +156,14 @@
     padding: 5px;
     padding-left: 25px;
   }
-  .Form-input-container #totalDebtLabel,
-  .Form-input-container #interestRateLabel {
+  .Form-input-container #tdLabel,
+  .Form-input-container #irLabel {
     top: 24rem;
   }
-  .Form-input-container #totalDebtLabel {
+  .Form-input-container #tdLabel {
     left: 7.5rem;
   }
-  .Form-input-container #interestRateLabel {
+  .Form-input-container #irLabel {
     left: 60.2rem;
   }
   .Info-form-btn,

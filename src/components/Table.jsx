@@ -28,7 +28,6 @@ function Table(props) {
           placeholder="0"
           min={minium}
           onChange={updatePayment}
-          value={payment}
         />
 
         <div className="btn-group">
