@@ -22,31 +22,19 @@ function App() {
   // function updateDisplay(total, rate) {
     
     /*
-    const miniumMonthly = getMiniumPayment(totalDebt, interestRate);
 
-    setDisplay({
-      ...display,
-      monthlyPayment: miniumMonthly.toFixed(2),
-      paymentsLeft: getPaymentsLeft(totalDebt),
-      originalDebt: totalDebt,
-    });
     setTable({
       ...table,
       balance: totalDebt,
       rate: interestRate,
       miniumPayment: miniumMonthly.toFixed(2),
     });
-    setInfoForm(initialStates.infoForm);
+
     */
   // }
   
   /* 
-  function updatePayment(e) {
-    setTable({
-      ...table,
-      payment: e.target.value,
-    });
-  }
+ 
   function addToPayments(e) {
     e.preventDefault();
     const btnClass = e.target.className;

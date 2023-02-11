@@ -1,20 +1,22 @@
 import { useState } from "react";
 
-const inputContainers = [
-  { key: 1, label: "Total Debt Amount", id: "totalDebt", name: "total-debt" },
-  {
-    key: 2,
-    label: "Estimated Interest Rate",
-    id: "interestRate",
-    name: "interest-rate",
-  },
-];
+
 
 const InfoForm = (props) => {
+  const { updateDisplay } = props;
   const [totalDebt, setTotalDebt] = useState(0);
   const [interestRate, setInterestRate] = useState(0);
-  const { updateDisplay } = props;
-
+  const inputContainers = [
+    { key: 1, label: "Total Debt Amount", id: "totalDebt", name: "total-debt", val: totalDebt },
+    {
+      key: 2,
+      label: "Estimated Interest Rate",
+      id: "interestRate",
+      name: "interest-rate",
+      val: interestRate
+    },
+  ];
+  
   const updateForm = (e) => {
     const value = e.target.value;
     const inputName = e.target.name;
@@ -26,6 +28,8 @@ const InfoForm = (props) => {
   const submit = (e) => {
     e.preventDefault();
     updateDisplay(totalDebt, interestRate);
+    setTotalDebt(0);
+    setInterestRate(0);
   }
 
   
@@ -43,7 +47,7 @@ const InfoForm = (props) => {
         </header>
         <div className="Form-body">
           {inputContainers.map((input) => {
-            const { key, label, id, name } = input;
+            const { key, label, id, name, val } = input;
 
             return (
               <div className="Form-input-container" key={key}>
@@ -58,6 +62,7 @@ const InfoForm = (props) => {
                   id={id}
                   name={name}
                   placeholder="0"
+                  value={val === 0 ? "" : val}
                   onChange={updateForm}
                 />
                 {key === 2 && (

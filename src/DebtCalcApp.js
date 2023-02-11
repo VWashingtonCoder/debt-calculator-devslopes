@@ -1,7 +1,7 @@
 import { useState } from "react";
 import InfoForm from "./components/InfoForm/InfoForm.jsx";
 import Display from "./components/Display/Display";
-import Table from "./components/Table";
+import Table from "./components/Table/Table";
 import { getMiniumPayment, getPaymentsLeft } from "./components/helpers.js";
 
 
@@ -9,6 +9,10 @@ const DebtCalcApp = () => {
     const [estPayment, setEstPayment] = useState(0);
     const [paymentsLeft, setPaymentsLeft] = useState(0);
     const [originalDebt, setOriginalDebt] = useState(0);
+    const [rate, setRate] = useState(0);
+    const [balance, setBalance] = useState(0);
+    const [payments, setPayments] = useState([]);
+
 
     const updateDisplay = (total, rate) => {
         const minPay = getMiniumPayment(total, rate);
@@ -16,6 +20,10 @@ const DebtCalcApp = () => {
         setEstPayment(minPay);
         setPaymentsLeft(numOfPays);
         setOriginalDebt(total);
+    }
+
+    const addToPayments = (payment) => {
+        console.log(payment)
     }
 
     return (
@@ -28,17 +36,15 @@ const DebtCalcApp = () => {
               estPayment={estPayment}
               numLeft={paymentsLeft}
               original={originalDebt}
-            />*
+            />
           </div>
-          {/* 
           <Table
-            // payment={payment}
-            // records={payments}
-            // minium={miniumPayment}
+            minium={estPayment}
+            records={payments}
+            
             // updatePayment={updatePayment}
-            // addToPayments={addToPayments}
+            addToPayments={addToPayments}
           />
-          */}
         </div>
       );
 
