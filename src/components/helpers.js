@@ -21,10 +21,9 @@ export function getPaymentsLeft(principal, rate, minPay) {
     return paymentNum;
 }
 
-
-//   function updateBalance(paid) {
-//     const interestAmount = getInterestAmount(rate, balance);
-//     const principalPayment = paid - interestAmount;
-//     const newBalance = (balance - principalPayment).toFixed(2);
-//     return newBalance;
-//   }
+export function getNewBalance(paid, balance, rate) {
+    const interestAmount = getInterestAmount(rate, balance);
+    const principalPayment = paid - interestAmount;
+    const newBalance = balance - principalPayment;
+    return newBalance;
+}
