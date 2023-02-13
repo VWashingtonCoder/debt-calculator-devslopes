@@ -27,11 +27,6 @@ const DebtCalcApp = () => {
     }
 
     const addToPayments = (payment) => {
-      if(payment < estPayment){
-        console.alert(`You must pay at least $${estPayment}`);
-        return;
-      }
-      
       const payNum = payments.length + 1;
       const rowKey = `Row-${payNum}`
       const newBalance = Number((getNewBalance(payment, balance, rate)).toFixed(2));

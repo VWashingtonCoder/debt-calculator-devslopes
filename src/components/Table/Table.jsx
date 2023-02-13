@@ -10,10 +10,16 @@ const Table = (props) => {
 
   const submit = (e) => {
     e.preventDefault();
+
+    if(payment < minium){
+      console.alert(`You must pay at least $${minium}`);
+      return;
+    }
+
     let paid = 0;
     e.target.value === "min" 
       ? paid = minium
-      : paid = payment;
+      : paid = payment;  
     addToPayments(paid);
     setPayment(0);
   };
